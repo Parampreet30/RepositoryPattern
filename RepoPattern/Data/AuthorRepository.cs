@@ -34,11 +34,17 @@ public class AuthorRepository : IRepository<Author>
 
     public IList<Author> GetAll()
     {
-        throw new NotImplementedException();
+        return_db;
     }
 
     public void Update(object Id, Author model)
     {
-        throw new NotImplementedException();
+        Author author = this.FindById(Id);
+        if (model.Email != Id.ToString())
+        {
+            throw new ArgumentException("Model Id's must match");
+        }
+        _db.Remove(author);
+        _db.Add(model);
     }
 }
