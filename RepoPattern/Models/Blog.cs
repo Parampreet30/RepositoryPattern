@@ -13,8 +13,18 @@ public class Blog : IAggregateRoot
 
     public Blog(string url, string name)
     {
-       this.URL = url;
-       this.Name = name;
+     // if (string.IsNullOrWhiteSpace(url))
+      /*{
+         throw new ArgumentNullException("Url must not be null or contain only whitespace.");
+      }*/
+
+       //Uri uri = new Uri(url);
+       if(Uri.TryCreate(url, new UriCreationOptions(){ DangerousDisablePathAndQueryCanonicalization = false}));
+       {
+         throw new UriFormatException("Url must be in correct format.");
+       }
+       //this.URL = url;
+       //this.Name = name;
     }
 
     public Blog(string url, string name, string description)
