@@ -2,12 +2,13 @@ namespace RepositoryPattern.RepoPattern;
 
 public class Blog : IAggregateRoot
 {
+   private IList<BlogPost> _blogposts = new List<BlogPost>();
     public string URL {get; set;}
     public string Name {get; set; }
 
     public string? Description {get; set;}
 
-    public List<BlogPost>? BlogPost {get; set;}
+    public IReadOnlyCollection<BlogPost>? BlogPosts => _blogposts.AsReadOnly();     //{get; set;}
 
     protected Blog() {}
 
@@ -33,6 +34,9 @@ public class Blog : IAggregateRoot
       /* this.URL = url;
        this.Name = name;*/
        this.Description = description;
+    }
+    public void AddBlogPost(string url, string name){
+      _blogposts.Add(new BlogPost() {URL = url, Name = name });
     }
 
 }
